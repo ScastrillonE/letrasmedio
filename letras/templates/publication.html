@@ -1,0 +1,252 @@
+{% extends 'base/base.html' %}
+
+{% load sections%}
+
+{% block meta %}
+
+<meta property="og:locale" content="es_ES" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{notice.title}}" />
+<meta property="og:description" content="{{notice.lead}}" />
+<meta property="og:url" content="http://letrasmedio.com/publicacion/{{notice.id}}" />
+<meta property="og:site_name" content="Letras Medio" />
+<meta property="og:image" content="http://letrasmedio.com{{picture.route.url}}" />
+{% endblock meta %}
+{% block content %}
+
+<div id="content">
+    <!-- BEGIN #portus-read-later -->
+    <!-- BEGIN .wrapper -->
+    <div class="wrapper">
+        <!-- BEGIN .portus-main-content-panel -->
+        <div class="paragraph-row portus-main-content-panel">
+            <div class="column12">
+                <div class="portus-main-content-s-block">
+                    <!-- BEGIN .portus-main-content -->
+                    <div class="portus-main-content">
+                        <div class="theiaStickySidebar">
+                            <div class="portus-main-article-block">
+                                <h2>{{notice.title}}</h2>
+
+                                <p class="portus-main-article-intro">{{notice.lead}}</p>
+
+                                <span class="portus-main-article-meta">
+                                    <a class="item-meta-i"><i class="fa fa-user"></i>{{notice.user.username}}</a>
+                                    <a class="item-meta-i"><i class="fa fa-star"></i>{{notice.section}}</a>
+                                    <a class="item-meta-i"><i class="po po-clock"></i>{{notice.created|date:"d M"}}</a>
+
+                                </span>
+                                <div class="wp-caption aligncenter">
+                                    <a href="{{notice.principal_picture}}" class="lightbox-photo" title="{{picture}}">
+                                        <img src="{{notice.principal_picture}}" width="680" height="357" alt="" /></a>
+                                    <p class="wp-caption-text">{%for picture_footer in notice.pictures.all  %} {{picture_footer.footer}} {% endfor %}</p>
+                                </div>
+
+                                {% if notice.podcast %}
+                                     <audio class ="btn  btn-block" controls>
+                                          <source src="{{notice.podcast.url}}" type="audio/mp3">
+                                     </audio>
+                                {% endif %}
+                                {% if notice.video_file %}
+                                    <div class="video-embed">
+                                        <iframe width="820" height="615"
+                                            src="{{notice.video_file.url}}" frameborder="0"
+                                            allowfullscreen="">
+                                        </iframe>
+                                </div>
+                                {% endif %}
+                                <p>{{notice.text| safe}}</p>
+                                {% if notice.video %}
+                                <div class="video-embed">
+                                    <iframe width="820" height="615"
+                                        src="http://www.youtube.com/embed/{%get_youtube notice.video%}" frameborder="0"
+                                        allowfullscreen=""></iframe>
+                                </div>
+                                {% endif %}
+
+
+
+
+
+
+                            </div>
+                            <!-- BEGIN .portus-content-block -->
+
+
+                            <!-- BEGIN .portus-content-block -->
+                            <div class="widget">
+                                {% comment %}
+                                #TODO share notice
+                                {% endcomment %}
+                                <h3>Compartir</h3>
+                                <div class="social-widget">
+                                    <div class="social-squares">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://letrasmedio.com/publicacion/{{notice.pk}}"
+                                            target="_blank" class="hover-color-facebook"><i
+                                                class="fa fa-facebook"></i><span>--</span></a>
+
+                                        <a href="#" target="_blank" class="hover-color-twitter"><i
+                                                class="fa fa-twitter"></i><span>--</span></a>
+
+                                        <a href="#" target="_blank" class="hover-color-google-plus"><i
+                                                class="fa fa-google-plus"></i><span>--</span></a>
+
+                                        <a href="#" target="_blank" class="hover-color-linkedin"><i
+                                                class="fa fa-linkedin"></i><span>--</span></a>
+
+                                        <a href="#" target="_blank" class="hover-color-pinterest"><i
+                                                class="fa fa-pinterest-p"></i><span>--</span></a>
+                                    </div>
+                                </div>
+
+                                <!-- END .widget -->
+                            </div>
+
+                        </div>
+                        <!-- END .portus-main-content -->
+                    </div>
+
+                    <aside class="sidebar portus-sidebar-small">
+                        <div class="theiaStickySidebar">
+
+                            <!-- BEGIN .widget -->
+                            <div class="widget">
+
+                                <h3>Destacados</h3>
+                                <div class="w-article-list">
+                                    {% for notice in top2_notices%}
+                                    <div class="item">
+                                        <div class="item-header">
+                                            <a href="{% url 'publication' notice.pk%}"><img
+                                                    src="{{notice.principal_picture}}" alt="" /></a>
+
+                                        </div>
+                                        <div class="item-content">
+
+                                            <h4><a href="{% url 'publication' notice.pk %}">{{notice.title}}</a></h4>
+                                            <div class="item-categories">
+                                                <a href="category.html" data-ot-css="color: #f37326;"><i
+                                                        class="fa fa-calendar"></i>
+                                                    {{notice.created|date:"d M"}}</a>
+                                                <a href="category.html" data-ot-css="color: #f37326;"><i
+                                                        class="fa fa-star"></i>
+                                                    {{notice.section}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+
+
+
+                                </div>
+
+                                <!-- END .widget -->
+                            </div>
+
+                            <!-- BEGIN .widget -->
+
+
+                            <!-- BEGIN .widget -->
+
+
+                        </div>
+                    </aside>
+
+                    <aside class="sidebar portus-sidebar-large">
+                        <div class="theiaStickySidebar">
+
+                            <!-- BEGIN .widget -->
+                            <div class="widget">
+
+                                <h3>Más de {{notice.section}}</h3>
+
+                                <div class="w-review-articles">
+                                    {% for notice in section_notices%}
+                                    <div class="item item-large">
+                                        <div class="item-header item-header-hover">
+                                            <div class="item-header-hover-buttons">
+                                                <span data-hover-text-me="Leer"><a
+                                                        href="{% url 'publication' notice.pk%}"
+                                                        class="fa fa-search"></a></span>
+
+                                            </div>
+
+                                            <a href="{% url 'publication' notice.pk%}"><img
+                                                    src="{{notice.principal_picture}}" /></a>
+
+                                        </div>
+                                        <div class="item-content">
+                                            <h4><a href="{% url 'publication' notice.pk%}">{{notice.title}}</a>
+                                                <a href="{% url 'publication' notice.pk%}" class="post-title-comment">
+                                                    <a href="{% url 'publication' notice.pk%}"
+                                                        data-ot-css="color: #f37326;">
+                                                        <i class="fa fa-calendar"></i> {{notice.created|date:"d M"}}</a>
+                                            </h4>
+
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+
+
+                                </div>
+                                <a href="{% url 'section' notice.section.pk %}" class="widget-view-more">Ver más
+                                    Noticias</a>
+
+                                <!-- END .widget -->
+                            </div>
+
+                            <!-- BEGIN .widget -->
+                            {% include "base/sidebar.html" %}
+                        </div>
+
+                </div>
+                </aside>
+
+            </div>
+        </div>
+        <!-- ENd .portus-main-content-panel -->
+    </div>
+
+    <!-- END .wrapper -->
+</div>
+
+<!-- BEGIN #content -->
+</div>
+{%endblock%}
+{% block scripts %}
+<script>
+
+
+    /* ajax para hacer submit al fomulario */
+    $(document).on('submit', '#form_post', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_suscriptor/',
+            data: {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (response) {
+                if (response == 0) {
+                    swal({
+                        title: 'Error de suscripción',
+                        text: 'Este Correo electrónico ya se encuentra registrado',
+                        icon: 'error',
+                        button: 'OK'
+                    });
+                }
+                else {
+                    swal({
+                        title: "Suscripción exitosa",
+                        text: "Bienvenid@",
+                        icon: "success",
+                        button: "Listo",
+                    });
+                }
+            }
+        });
+    });
+</script>
+{% endblock%}
