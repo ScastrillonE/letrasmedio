@@ -33,7 +33,7 @@
                     {% if top2_notices %}
 
                     <div class="item item-small">
-                          
+
                         {%for notice in top2_notices|slice:":4" %}
 
                         <a href="{% url 'publication' notice.pk %}" class="item-photo">
@@ -99,7 +99,7 @@
                                                 <a href="{% url 'publication' notice.pk %}">
                                                     <img src="{{notice.principal_picture}}" height="146px" width="260px"  alt="" />
                                                     </a>
-                                       
+
                                             </div>
                                             <div class="item-content">
                                                 <h3><a href="{% url 'publication' notice.pk %}">{{notice.title}}</a>
