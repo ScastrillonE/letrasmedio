@@ -3,15 +3,16 @@
 {% load sections%}
 
 {% block meta %}
-
-<meta property="og:locale" content="es_ES" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="{{notice.title}}" />
-<meta property="og:description" content="{{notice.lead}}" />
+<meta name="twitter:creator" content=”@LetrasMedio”>
+<meta name="twitter:title" content="{{notice.title}} ">
+<meta name="twitter:description" content="{{notice.lead}}">
+<meta property="twitter:type" content="article" />
+<meta name="twitter:image" content=" http://letrasmedio.com{{picture.route.url}}">
 <meta property="og:url" content="http://letrasmedio.com/publicacion/{{notice.id}}" />
 <meta property="og:site_name" content="Letras Medio" />
-<meta property="og:image" content="http://letrasmedio.com{{picture.route.url}}" />
+<meta name="twitter:card" content="summary_large_image">
 {% endblock meta %}
+
 {% block content %}
 
 <div id="content">
@@ -38,7 +39,7 @@
                                 </span>
                                 <div class="wp-caption aligncenter">
                                     <a href="{{notice.principal_picture}}" class="lightbox-photo" title="{{picture}}">
-                                        <img src="{{notice.principal_picture}}" width="680" height="357" alt="" /></a>
+                                        <img src="{{notice.principal_picture}}" width="680" height="357" alt="{{notice.picture}}" /></a>
                                     <p class="wp-caption-text">{%for picture_footer in notice.pictures.all  %} {{picture_footer.footer}} {% endfor %}</p>
                                 </div>
 
@@ -63,10 +64,6 @@
                                         allowfullscreen=""></iframe>
                                 </div>
                                 {% endif %}
-
-
-
-
 
 
                             </div>
